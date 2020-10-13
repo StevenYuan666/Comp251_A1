@@ -39,16 +39,31 @@ public class Open_Addressing {
          return i+min+1;
      }
         /**Implements the hash function g(k)*/
+     //define the h(k) inside the g(k,i)
+     	int g (int key) {
+     		//calculate the value before right shift
+        	int beforeShift = A * key % (Chaining.power2(w));
+        	//do the right shift
+        	int toShift = w - r;
+        	String s = Integer.toBinaryString(beforeShift);
+        	String tmp = "";
+        	for(int i = 0; i < (s.length() - toShift); i ++) {
+        		tmp += s.toCharArray()[i];
+        	}
+        	int result = Integer.valueOf(tmp,2);
+        	return result;
+     	}
         public int probe(int key, int i) {
             //TODO: implement this function and change the return statement.
-        return -1;
+        	int result = (g(key) + i) % (Open_Addressing.power2(r));
+        	return result;
      }
      
      
      /**Inserts key k into hash table. Returns the number of collisions encountered*/
         public int insertKey(int key){
             //TODO : implement this and change the return statement.
-            return -1;  
+            return -1;
         }
         
         /**Sequentially inserts a list of keys into the HashTable. Outputs total number of collisions */
