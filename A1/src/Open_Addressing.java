@@ -50,20 +50,41 @@ public class Open_Addressing {
         	for(int i = 0; i < (s.length() - toShift); i ++) {
         		tmp += s.toCharArray()[i];
         	}
-        	int result = Integer.valueOf(tmp,2);
-        	return result;
+        	if(tmp == "") {
+        		return 0;
+        	}
+        	else {
+            	int result = Integer.valueOf(tmp,2);
+            	return result;
+        	}
      	}
         public int probe(int key, int i) {
             //TODO: implement this function and change the return statement.
-        	int result = (g(key) + i) % (Open_Addressing.power2(r));
-        	return result;
+        	if(i >= m) {
+        		return -1;
+        	}
+        	else {
+            	int result = (g(key) + i) % (Open_Addressing.power2(r));
+            	return result;
+        	}
      }
      
      
      /**Inserts key k into hash table. Returns the number of collisions encountered*/
         public int insertKey(int key){
             //TODO : implement this and change the return statement.
-            return -1;
+        	int i = 0;
+        	int index = probe(key, i);
+        	int counter = 0;
+        	while(index >= 0 && index < m && this.Table[index] != -1) {
+        		i ++;
+        		index = probe(key,i);
+        		counter ++;
+        	}
+        	if(index >= 0 && index < m) {
+                this.Table[index] = key;
+        	}
+        	return counter;
         }
         
         /**Sequentially inserts a list of keys into the HashTable. Outputs total number of collisions */
@@ -79,7 +100,17 @@ public class Open_Addressing {
          /**Inserts key k into hash table. Returns the number of collisions encountered*/
         public int removeKey(int key){
             //TODO: implement this and change the return statement
-                
-            return -1;
+        	int i = 0;
+        	int index = probe(key, i);
+        	int counter = 0;
+        	while(index >= 0 && index < m && this.Table[index] != key) {
+        		i ++;
+        		index = probe(key,i);
+        		counter ++;
+        	}
+        	if(index >= 0 && index < m && this.Table[index] == key) {
+        		this.Table[index] = -1;
+        	}
+        	return counter;
         }
 }

@@ -55,16 +55,33 @@ public class Chaining {
     	for(int i = 0; i < (s.length() - toShift); i ++) {
     		tmp += s.toCharArray()[i];
     	}
-    	int result = Integer.valueOf(tmp,2);
-    	return result;
+    	if(tmp == "") {
+    		return 0;
+    	}
+    	else {
+        	int result = Integer.valueOf(tmp,2);
+        	return result;
+    	}
     }
         
     
     /**Inserts key k into hash table. Returns the number of collisions encountered*/
     public int insertKey(int key){
         //TODO: implement this and change the return statement
-        return -1;
-
+    	int index = chain(key);
+    	ArrayList<Integer> t = this.Table.get(index);
+    	//insert the key to the List
+    	boolean ifRepeated = false;
+    	for(int i = 0; i < t.size(); i ++) {
+    		if(t.get(i) == key) {
+    			ifRepeated = true;
+    		}
+    	}
+    	if(!ifRepeated) {
+    		t.add(key);
+    	}
+    	int collision = t.size() - 1;
+    	return collision;
     }
 
     
