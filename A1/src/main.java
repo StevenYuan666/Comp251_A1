@@ -62,7 +62,7 @@ public class main {
 	
 	//Tests for Chain from CodePost
 	public static void chainTest1() {
-		Chaining c1 = new Chaining(10, 0, -1);
+		Chaining c1 = new Chaining (10, 0, -1);
 		int k1 = c1.chain(1);
 		if(k1 == 30) {
 			System.out.println("Chain Test1 Passed. Pts [ 1 / 1 ]");
@@ -350,7 +350,7 @@ public class main {
 			heavy += 1;
 		}
 		else {
-			System.out.println("Open_Addressing.insertKey Test2 Passed. Pts [ 0 / 1 ]");
+			System.out.println("Open_Addressing.insertKey Test2 Failed. Pts [ 0 / 1 ]");
 		}
 	}
 	
@@ -363,7 +363,7 @@ public class main {
 			heavy += 1;
 		}
 		else {
-			System.out.println("Open_Addressing.insertKey Test3 Passed. Pts [ 0 / 1 ]");
+			System.out.println("Open_Addressing.insertKey Test3 Failed. Pts [ 0 / 1 ]");
 		}
 	}
 	
@@ -372,12 +372,16 @@ public class main {
 		int[] keys = {12, 5, 2, 7, 1, 3};
 		o4.insertKeyArray(keys);
 		boolean condition = false;
-		for(int i = 0; i < keys.length; i ++) {
+		int l = 0;
+		if(keys.length <= o4.w) {
+			l = keys.length;
+		}
+		else {
+			l = keys.length - o4.w;
+		}
+		for(int i = 0; i < l; i ++) {
 			int index = o4.probe(keys[i], o4.insertKey(keys[i]));
 			if(index >= 0 && o4.Table[index] == keys[i]) {
-				condition = true;
-			}
-			else if(index == -1) {
 				condition = true;
 			}
 			else {
@@ -398,12 +402,16 @@ public class main {
 		int[] keys = {12, 5, 2, 7, 1998, 2000};
 		o5.insertKeyArray(keys);
 		boolean condition = false;
-		for(int i = 0; i < keys.length; i ++) {
+		int l = 0;
+		if(keys.length <= o5.w) {
+			l = keys.length;
+		}
+		else {
+			l = keys.length - o5.w;
+		}
+		for(int i = 0; i < l; i ++) {
 			int index = o5.probe(keys[i], o5.insertKey(keys[i]));
 			if(index >= 0 && o5.Table[index] == keys[i]) {
-				condition = true;
-			}
-			else if(index == -1) {
 				condition = true;
 			}
 			else {
@@ -424,12 +432,16 @@ public class main {
 		int[] keys = {12, 5, 2, 7, 1998, 2000};
 		o6.insertKeyArray(keys);
 		boolean condition = false;
-		for(int i = 0; i < keys.length; i ++) {
+		int l = 0;
+		if(keys.length <= o6.w) {
+			l = keys.length;
+		}
+		else {
+			l = keys.length - o6.w;
+		}
+		for(int i = 0; i < l; i ++) {
 			int index = o6.probe(keys[i], o6.insertKey(keys[i]));
 			if(index >= 0 && o6.Table[index] == keys[i]) {
-				condition = true;
-			}
-			else if(index == -1) {
 				condition = true;
 			}
 			else {
@@ -465,12 +477,14 @@ public class main {
 		o2.insertKeyArray(keys);
 		int collision1 = o2.removeKey(1998);
 		int collision2 = o2.removeKey(2000);
+		System.out.println(collision1);
+		System.out.println(collision2);
 		if(collision1 == 4 && collision2 == 4) {
 			System.out.println("Open_Addressing.removeKey Test2 Passed. Pts [ 1 / 1 ]");
 			heavy += 1;
 		}
 		else {
-			System.out.println("Open_Addressing.removeKey Test2 Passed. Pts [ 0 / 1 ]");
+			System.out.println("Open_Addressing.removeKey Test2 Failed. Pts [ 0 / 1 ]");
 		}
 	}
 	
@@ -485,7 +499,7 @@ public class main {
 			heavy += 1;
 		}
 		else {
-			System.out.println("Open_Addressing.removeKey Test3 Passed. Pts [ 0 / 1 ]");
+			System.out.println("Open_Addressing.removeKey Test3 Failed. Pts [ 0 / 1 ]");
 		}
 	}
 	

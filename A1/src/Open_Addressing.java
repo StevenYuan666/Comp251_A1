@@ -60,13 +60,9 @@ public class Open_Addressing {
      	}
         public int probe(int key, int i) {
             //TODO: implement this function and change the return statement.
-        	if(i >= m) {
-        		return -1;
-        	}
-        	else {
-            	int result = (g(key) + i) % (Open_Addressing.power2(r));
-            	return result;
-        	}
+        	
+            int result = (g(key) + i) % (Open_Addressing.power2(r));
+            return result;
      }
      
      
@@ -77,12 +73,12 @@ public class Open_Addressing {
         	int index = probe(key, i);
         	int counter = 0;
         	//find an empty space for the new key
-        	while(index >= 0 && index < m && this.Table[index] != -1) {
+        	while(index >= 0 && index < m && this.Table[index] != -1 && i < m) {
         		i ++;
         		index = probe(key,i);
         		counter ++;
         	}
-        	if(index >= 0 && index < m) {
+        	if(index >= 0 && index < m && this.Table[index] == -1) {
                 this.Table[index] = key;
         	}
         	return counter;
@@ -105,7 +101,7 @@ public class Open_Addressing {
         	int index = probe(key, i);
         	int counter = 0;
         	//find the key with the minimal iterations
-        	while(index >= 0 && index < m && this.Table[index] != key) {
+        	while(index >= 0 && index < m && this.Table[index] != key && i < m) {
         		i ++;
         		index = probe(key,i);
         		counter ++;
