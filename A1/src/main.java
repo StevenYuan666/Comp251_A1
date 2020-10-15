@@ -3,247 +3,552 @@ import java.util.*;
 
 
 public class main {
-    public static void main(String[] args) {
+	//define the scores for testers
+		static int mini = 0;
+		static int heavy = 0;
+	public static void main(String[] args) {
         // TODO:build the hash table and insert keys using the insertKeyArray function
-
-        main m = new main();
-        // Test Chaining class
-        // hash function
-        m.ChainTest1();
-        m.ChainTest2();
-        // insert values into a hashmap
-        m.insertChainTest1();
-        m.insertChainTest2();
-        // hashfunction
-        m.ProbeTest1();
-        m.ProbeTest2();
-        m.ProbeTest3();
-        // insert values into a hashmap
-        m.insertProbeTest1();
-        m.insertProbeTest2();
-        m.insertProbeTest3();
-        // remove values from the hashmap
-        m.removeProbeTest1();
-        m.removeProbeTest2();
-        m.removeProbeTest3();
-
-        Open_Addressing o = new Open_Addressing(10, 0, -1);
-        System.out.println(o.probe(1, 0));
-        System.out.println(o.probe(1, 3));
-
-    }
-
-    /**
-     * Given Chain Test
-     */
-    public void ChainTest1() {
-        Chaining c = new Chaining(10, 0, -1);
-        int hashValue = c.chain(1);
-        if (hashValue == 30) {
-            System.out.println("Chain Test 1 Passed");
-        } else {
-            System.out.println(" Failed Chain Test 1: Problem in Chaining.chain");
-        }
-    }
-
-    /**
-     * Random chain test
-     */
-    public void ChainTest2() {
-        Chaining c = new Chaining(10, 0, -1);
-        int hashValue = c.chain(36);
-        if (hashValue == 6) {
-            System.out.println("Chain Test 2 Passed");
-        }
-    }
-
-    /**
-     * Test if you can insert into chaining table when there are no elements in the
-     * bucket
-     */
-    public void insertChainTest1() {
-        Chaining c = new Chaining(10, 0, -1);
-        int[] keyArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        int collisions = c.insertKeyArray(keyArray);
-        if (collisions == 0) {
-            System.out.println("Insert Chain Test 1 Passed");
-        } else {
-            System.out.println("There are multiple collisions in a table that should not have any collisions");
-        }
-    }
-
-    /**
-     * Test if you can insert into chaining table when there are elements in the
-     * bucket and value that exceed the elements in the bucket
-     */
-    public void insertChainTest2() {
-        Chaining c = new Chaining(3, 0, -1);
-        int[] keyArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
-        int collisions = c.insertKeyArray(keyArray);
-        if (collisions == 0) {
-            System.out.println("You should have many collisions given the circumstances of this Table");
-        } else {
-            System.out.println("Insert Chain Test 2 Passed");
-        }
-    }
-
-    /**
-     * Check if probing works with i = 0
-     */
-    public void ProbeTest1() {
-        Open_Addressing p = new Open_Addressing(10, 0, -1);
-        int hash = p.probe(1, 0);
-        if (hash == 30) {
-            System.out.println("Probe Test 1 Passed");
-        } else {
-            System.out.println("Probe Test 1 Failed");
-        }
-    }
-
-    /**
-     * Check if probing works with m> i >0
-     */
-    public void ProbeTest2() {
-        Open_Addressing p = new Open_Addressing(10, 0, -1);
-        int hash = p.probe(1, 2);
-        if (hash == 0) {
-            System.out.println("Probe Test 2 Passed");
-        } else {
-            System.out.println("Probe Test 2 Failed");
-
-        }
-    }
-
-    /**
-     * Check if probing works with m =< i
-     */
-    public void ProbeTest3() {
-        Open_Addressing p = new Open_Addressing(10, 0, -1);
-        int hash2 = p.probe(1, 33);
-        if (hash2 == -1) {
-            System.out.println("Probe Test 3 Passed");
-        } else {
-            System.out.println("Probe Test 3 Failed");
-
-        }
-    }
-
-    /**
-     * insert with no conflicting probes
-     */
-    public void insertProbeTest1() {
-        Open_Addressing p = new Open_Addressing(10, 0, -1);
-        int[] keyArray = {1,2,3,4,5,6,7,8,9,10};
-        int jumps = p.insertKeyArray(keyArray);
-        if (jumps == 0) {
-            System.out.println("Insert Probe Test 1 Passed");
-        }
-        else
-        {
-            System.out.println("Insert Probe Test 1 Failed");
-
-        }
-    }
-
-    /**
-     * Conflicting probes
-     */
-    public void insertProbeTest2() {
-        Open_Addressing p = new Open_Addressing(3, 0, -1);
-        int[] keyArray = { 2, 2 };
-        int jumps = p.insertKeyArray(keyArray);
-        if  (jumps== 1){
-        System.out.println("Insert Probe Test 2 Passed");
-        }
-        else
-        {
-        System.out.println("Insert Probe Test 2 Failed");
-        }
-
-    }
-
-    /**
-     * Too many probes in the table to add any.
-     */
-    public void insertProbeTest3() {
-        Open_Addressing p = new Open_Addressing(2, 0, -1);
-        int[] keyArray = { 1, 2, 3 };
-        p.insertKeyArray(keyArray);
-        int jumps = p.insertKey(5);
-        if (jumps == 2){
-            System.out.println("Insert Probe Test 3 Passed");
-        }
-        else
-        {
-            System.out.println("Insert Probe Test 3 Failed");
-        }
-    }
-
-/**
-     * remove from when there are no jumps
-     */
-    public void removeProbeTest1(){
-        Open_Addressing p = new Open_Addressing(10, 0, -1);
-        int[] keyArray = {1,2,3,4,5,6,7,8,9,10};
-        p.insertKeyArray(keyArray);
-        int jumps = p.removeKey(1);
-        int removedVal = p.Table[p.probe(1,0)];
-        int jumpsTwo = p.removeKey(2);
-        int removedVal2 = p.Table[p.probe(2,0)];
-
-        if (    jumps == 0 &&
-                removedVal!=1 &&
-                jumpsTwo == 0 &&
-                removedVal2 != 2 &&
-                p.Table[p.probe(3,0)] == 3)
-        {
-            System.out.println("Remove Probe Test 1 Passed");
-        }
-        else{
-            System.out.println("Remove Probe Test 1 Failed");
-        }
-
-    }
-    /**
-     * Remove with some jumps
-     */
-
-
-    public void removeProbeTest2(){
-        Open_Addressing o = new Open_Addressing(2, 0, -1);
-        int[] keyArray = {1,2};
-        o.insertKeyArray(keyArray);
-        o.removeKey(2);
-        int removedVal = o.Table[o.probe(2,1)];
-        int keptVal = o.Table[o.probe(1,0)];
-
-        if ( removedVal != 2&& keptVal == 1)
-        {
-            System.out.println("Remove Probe Test 2 Passed");
-        }
-        else{
-            System.out.println("Remove Probe Test 2 Failed" );
-        }
-    }
-    /**
-     * Remove when the key is is not in the table
-     * */
-    public void removeProbeTest3(){
-            Open_Addressing o = new Open_Addressing(10, 0, -1);
-            int jumps = o.removeKey(2);
-            int removedVal = o.Table[o.probe(2,0)];
-            if (removedVal == -1 && jumps == o.m)
-            {
-                System.out.println("Remove Probe Test 3 Passed");
-            }
-            else{
-                System.out.println("Remove Probe Test 3 Failed" );
-            }
-
-
-    }
-    
-
-
-
+		
+		//Run the test cases from the CodePost first
+		System.out.println("Running the mini tester from CodePost now...");
+		//Chaining Tests
+		chainTest1();
+		chainTest2();
+		chainTest3();
+		//Probe Tests
+		probeTest1();
+		probeTest2();
+		probeTest3();
+		System.out.println("Completed the mini tester. Your score is [ " + mini + " / 6 ]");
+		
+		//Run the heavy test cases designed by myself
+		System.out.println("Now, checking by using the heavy tester...");
+		//chain
+		chainTest4();
+		chainTest5();
+		chainTest6();
+		//probe
+		probeTest4();
+		probeTest5();
+		probeTest6();
+		//Test if the number of collision is right
+		System.out.println("Testing if the number of collisions is right...");
+		//insertKey in Chaining
+		chainInsert1();
+		chainInsert2();
+		chainInsert3();
+		//insertKey in Open_Addressing
+		addInsert1();
+		addInsert2();
+		addInsert3();
+		//Test if the number of collision is right//removeKey in Open_Addressing
+		removeTest1();
+		removeTest2();
+		removeTest3();
+		//Test if insert successfully
+		System.out.println("Testing if insert/remove successfully...");
+		chainInsert4();
+		chainInsert5();
+		chainInsert6();
+		addInsert4();
+		addInsert5();
+		addInsert6();
+		//Test if remove successfully//removeKey in Open_Addressing
+		removeTest4();
+		removeTest5();
+		removeTest6();
+		System.out.println("Completed the heavy tester. Your score is [ " + heavy + " / 24 ]");
+	}
+	
+	//Tests for Chain from CodePost
+	public static void chainTest1() {
+		Chaining c1 = new Chaining(10, 0, -1);
+		int k1 = c1.chain(1);
+		if(k1 == 30) {
+			System.out.println("Chain Test1 Passed. Pts [ 1 / 1 ]");
+			mini += 1;
+		}
+		else {
+			System.out.println("Chain Test1 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainTest2() {
+		Chaining c2 = new Chaining(10, 0, -1);
+		int k2 = c2.chain(4);
+		if(k2 == 25) {
+			System.out.println("Chain Test2 Passed. Pts [ 1 / 1 ]");
+			mini += 1;
+		}
+		else {
+			System.out.println("Chain Test2 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainTest3() {
+		Chaining c3 = new Chaining(10, 0, -1);
+		int k3 = c3.chain(8);
+		if(k3 == 19) {
+			System.out.println("Chain Test3 Passed. Pts [ 1 / 1 ]");
+			mini += 1;
+		}
+		else {
+			System.out.println("Chain Test3 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	//Tests for Probe from CodePost
+	public static void probeTest1() {
+		Open_Addressing o1 = new Open_Addressing(10, 0, -1);
+		int k1 = o1.probe(1, 0);
+		if(k1 == 30) {
+			System.out.println("Probe Test1 Passed. Pts [ 1 / 1 ]");
+			mini += 1;
+		}
+		else {
+			System.out.println("Probe Test1 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void probeTest2() {
+		Open_Addressing o2 = new Open_Addressing(10, 0, -1);
+		int k2 = o2.probe(1, 1);
+		if(k2 == 31) {
+			System.out.println("Probe Test2 Passed. Pts [ 1 / 1 ]");
+			mini += 1;
+		}
+		else {
+			System.out.println("Probe Test2 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void probeTest3() {
+		Open_Addressing o3 = new Open_Addressing(10, 0, -1);
+		int k3 = o3.probe(1, 3);
+		if(k3 == 1) {
+			System.out.println("Probe Test3 Passed. Pts [ 1 / 1 ]");
+			mini += 1;
+		}
+		else {
+			System.out.println("Probe Test3 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	//HEAVY TESTER DESIGNED BY MYSELF
+	//Chain Part
+	public static void chainTest4() {
+		Chaining c4 = new Chaining(4, 1205, -1);
+		int k4 = c4.chain(207);
+		if(k4 == 0) {
+			System.out.println("Chain Test4 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chain Test4 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainTest5() {
+		Chaining c5 = new Chaining(7, 207, 93);
+		int k5 = c5.chain(1205);
+		if(k5 == 8) {
+			System.out.println("Chain Test5 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chain Test5 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainTest6() {
+		Chaining c6 = new Chaining(5, 290, 23);
+		int k6 = c6.chain(3180);
+		if(k6 == 5) {
+			System.out.println("Chain Test6 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chain Test6 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	//Probe Part
+	public static void probeTest4() {
+		Open_Addressing o4 = new Open_Addressing(4, 1205, -1);
+		int k4 = o4.probe(207, 3);
+		if(k4 == 3) {
+			System.out.println("Probe Test4 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Probe Test4 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void probeTest5() {
+		Open_Addressing o5 = new Open_Addressing(7, 207, 93);
+		int k5 = o5.probe(1205, 4);
+		if(k5 == 12) {
+			System.out.println("Probe Test5 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Probe Test5 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void probeTest6() {
+		Open_Addressing o6 = new Open_Addressing(5, 290, 23);
+		int k6 = o6.probe(3180, 1);
+		if(k6 == 6) {
+			System.out.println("Probe Test6 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Probe Test6 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	//Chaining.insertKey Part
+	public static void chainInsert1() {
+		Chaining c1 = new Chaining(10, 0, -1);
+		int[] keys = {12, 5, 2, 7, 2020, 2000};
+		int collision = c1.insertKeyArray(keys);
+		if(collision == 3) {
+			System.out.println("Chaining.insertKey Test1 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chaining.insertKey Test1 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainInsert2() {
+		Chaining c2 = new Chaining(4, 1205, -1);
+		int[] keys = {12, 5, 2, 7, 2020, 2000};
+		int collision = c2.insertKeyArray(keys);
+		if(collision == 2) {
+			System.out.println("Chaining.insertKey Test2 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chaining.insertKey Test2 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainInsert3() {
+		Chaining c3 = new Chaining(7, 207, 93);
+		int[] keys = {12, 5, 2, 7, 2020, 2000};
+		int collision = c3.insertKeyArray(keys);
+		if(collision == 1) {
+			System.out.println("Chaining.insertKey Test3 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chaining.insertKey Test3 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainInsert4() {
+		Chaining c4 = new Chaining(10, 0, -1);
+		int[] keys = {12, 5, 2, 7, 2020, 2000};
+		c4.insertKeyArray(keys);
+		boolean condition = false;
+		for(int i = 0; i < keys.length; i++) {
+			ArrayList<Integer> tmp = c4.Table.get(c4.chain(keys[i]));
+			for(int j = 0; j < tmp.size(); j++) {
+				if(tmp.get(j) == keys[i]) {
+					condition = true;
+					break;
+				}
+				else {
+					condition = false;
+				}
+			}
+		}
+		if(condition) {
+			System.out.println("Chaining.insertKey Test4 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chaining.insertKey Test4 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainInsert5() {
+		Chaining c5 = new Chaining(4, 1205, -1);
+		int[] keys = {12, 5, 2, 7, 2020, 2000};
+		c5.insertKeyArray(keys);
+		boolean condition = false;
+		for(int i = 0; i < keys.length; i++) {
+			ArrayList<Integer> tmp = c5.Table.get(c5.chain(keys[i]));
+			for(int j = 0; j < tmp.size(); j++) {
+				if(tmp.get(j) == keys[i]) {
+					condition = true;
+					break;
+				}
+				else {
+					condition = false;
+				}
+			}
+		}
+		if(condition) {
+			System.out.println("Chaining.insertKey Test5 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chaining.insertKey Test5 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void chainInsert6() {
+		Chaining c6 = new Chaining(7, 207, 93);
+		int[] keys = {12, 5, 2, 7, 2020, 2000};
+		c6.insertKeyArray(keys);
+		boolean condition = false;
+		for(int i = 0; i < keys.length; i++) {
+			ArrayList<Integer> tmp = c6.Table.get(c6.chain(keys[i]));
+			for(int j = 0; j < tmp.size(); j++) {
+				if(tmp.get(j) == keys[i]) {
+					condition = true;
+					break;
+				}
+				else {
+					condition = false;
+				}
+			}
+		}
+		if(condition) {
+			System.out.println("Chaining.insertKey Test6 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Chaining.insertKey Test6 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	//Open_Addressing.insertKey Part
+	public static void addInsert1() {
+		Open_Addressing o1 = new Open_Addressing(10, 0, -1);
+		int[] keys = {12, 5, 2, 7, 1, 3};
+		int collision = o1.insertKeyArray(keys);
+		if(collision == 0) {
+			System.out.println("Open_Addressing.insertKey Test1 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.insertKey Test1 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void addInsert2() {
+		Open_Addressing o2 = new Open_Addressing(4, 1205, -1);
+		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		int collision = o2.insertKeyArray(keys);
+		if(collision == 8) {
+			System.out.println("Open_Addressing.insertKey Test2 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.insertKey Test2 Passed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void addInsert3() {
+		Open_Addressing o3 = new Open_Addressing(5, 290, 23);
+		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		int collision = o3.insertKeyArray(keys);
+		if(collision == 3) {
+			System.out.println("Open_Addressing.insertKey Test3 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.insertKey Test3 Passed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void addInsert4() {
+		Open_Addressing o4 = new Open_Addressing(10, 0, -1);
+		int[] keys = {12, 5, 2, 7, 1, 3};
+		o4.insertKeyArray(keys);
+		boolean condition = false;
+		for(int i = 0; i < keys.length; i ++) {
+			int index = o4.probe(keys[i], o4.insertKey(keys[i]));
+			if(index >= 0 && o4.Table[index] == keys[i]) {
+				condition = true;
+			}
+			else if(index == -1) {
+				condition = true;
+			}
+			else {
+				condition = false;
+			}
+		}
+		if(condition) {
+			System.out.println("Open_Addressing.insertKey Test4 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.insertKey Test4 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void addInsert5() {
+		Open_Addressing o5 = new Open_Addressing(4, 1205, -1);
+		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		o5.insertKeyArray(keys);
+		boolean condition = false;
+		for(int i = 0; i < keys.length; i ++) {
+			int index = o5.probe(keys[i], o5.insertKey(keys[i]));
+			if(index >= 0 && o5.Table[index] == keys[i]) {
+				condition = true;
+			}
+			else if(index == -1) {
+				condition = true;
+			}
+			else {
+				condition = false;
+			}
+		}
+		if(condition) {
+			System.out.println("Open_Addressing.insertKey Test5 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.insertKey Test5 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void addInsert6() {
+		Open_Addressing o6 = new Open_Addressing(5, 290, 23);
+		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		o6.insertKeyArray(keys);
+		boolean condition = false;
+		for(int i = 0; i < keys.length; i ++) {
+			int index = o6.probe(keys[i], o6.insertKey(keys[i]));
+			if(index >= 0 && o6.Table[index] == keys[i]) {
+				condition = true;
+			}
+			else if(index == -1) {
+				condition = true;
+			}
+			else {
+				condition = false;
+			}
+		}
+		if(condition) {
+			System.out.println("Open_Addressing.insertKey Test6 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.insertKey Test6 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void removeTest1() {
+		Open_Addressing o1 = new Open_Addressing(10, 0, -1);
+		int[] keys = {12, 5, 2, 7, 1, 3};
+		o1.insertKeyArray(keys);
+		int collision = o1.removeKey(12);
+		if(collision == 0) {
+			System.out.println("Open_Addressing.removeKey Test1 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.removeKey Test1 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void removeTest2() {
+		Open_Addressing o2 = new Open_Addressing(4, 1205, -1);
+		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		o2.insertKeyArray(keys);
+		int collision1 = o2.removeKey(1998);
+		int collision2 = o2.removeKey(2000);
+		if(collision1 == 4 && collision2 == 4) {
+			System.out.println("Open_Addressing.removeKey Test2 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.removeKey Test2 Passed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void removeTest3() {
+		Open_Addressing o3 = new Open_Addressing(5, 290, 23);
+		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		o3.insertKeyArray(keys);
+		int collision1 = o3.removeKey(1998);
+		int collision2 = o3.removeKey(2000);
+		if(collision1 == 1 && collision2 == 2) {
+			System.out.println("Open_Addressing.removeKey Test3 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.removeKey Test3 Passed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void removeTest4() {
+		Open_Addressing o4 = new Open_Addressing(10, 0, -1);
+		int[] keys = {12, 5, 2, 7, 1, 3};
+		o4.insertKeyArray(keys);
+		o4.removeKey(12);
+		boolean condition = true;
+		int[] t = o4.Table;
+		for(int i = 0; i < t.length; i++) {
+			if(t[i] == 12) {
+				condition = false;
+			}
+		}
+		if(condition) {
+			System.out.println("Open_Addressing.removeKey Test4 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.removeKey Test4 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void removeTest5() {
+		Open_Addressing o5 = new Open_Addressing(4, 1205, -1);
+		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		o5.insertKeyArray(keys);
+		o5.removeKey(1998);
+		boolean condition = true;
+		int[] t = o5.Table;
+		for(int i = 0; i < t.length; i++) {
+			if(t[i] == 1998) {
+				condition = false;
+			}
+		}
+		if(condition) {
+			System.out.println("Open_Addressing.removeKey Test5 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.removeKey Test5 Failed. Pts [ 0 / 1 ]");
+		}
+	}
+	
+	public static void removeTest6() {
+		Open_Addressing o6 = new Open_Addressing(5, 290, 23);
+		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		o6.insertKeyArray(keys);
+		o6.removeKey(2000);
+		boolean condition = true;
+		int[] t = o6.Table;
+		for(int i = 0; i < t.length; i++) {
+			if(t[i] == 2000) {
+				condition = false;
+			}
+		}
+		if(condition) {
+			System.out.println("Open_Addressing.removeKey Test6 Passed. Pts [ 1 / 1 ]");
+			heavy += 1;
+		}
+		else {
+			System.out.println("Open_Addressing.removeKey Test6 Failed. Pts [ 0 / 1 ]");
+		}
+	}
 }
