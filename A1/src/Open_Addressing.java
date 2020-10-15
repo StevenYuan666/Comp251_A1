@@ -76,6 +76,7 @@ public class Open_Addressing {
         	int i = 0;
         	int index = probe(key, i);
         	int counter = 0;
+        	//find an empty space for the new key
         	while(index >= 0 && index < m && this.Table[index] != -1) {
         		i ++;
         		index = probe(key,i);
@@ -103,6 +104,7 @@ public class Open_Addressing {
         	int i = 0;
         	int index = probe(key, i);
         	int counter = 0;
+        	//find the key with the minimal iterations
         	while(index >= 0 && index < m && this.Table[index] != key) {
         		i ++;
         		index = probe(key,i);

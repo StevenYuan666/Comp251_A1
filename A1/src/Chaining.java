@@ -71,6 +71,7 @@ public class Chaining {
     	int index = chain(key);
     	ArrayList<Integer> t = this.Table.get(index);
     	//insert the key to the List
+    	//check if there's same key in the List
     	boolean ifRepeated = false;
     	for(int i = 0; i < t.size(); i ++) {
     		if(t.get(i) == key) {
