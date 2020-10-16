@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class Tester {
 	public static void main(String[] args) {
         // TODO:build the hash table and insert keys using the insertKeyArray function

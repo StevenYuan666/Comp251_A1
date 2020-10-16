@@ -72,6 +72,7 @@ public class Chaining {
     	ArrayList<Integer> t = this.Table.get(index);
     	//insert the key to the List
     	//check if there's same key in the List
+    	/*
     	boolean ifRepeated = false;
     	for(int i = 0; i < t.size(); i ++) {
     		if(t.get(i) == key) {
@@ -81,7 +82,9 @@ public class Chaining {
     	if(!ifRepeated) {
     		t.add(key);
     	}
-    	int collision = t.size() - 1;
+    	*/
+    	int collision = t.size();
+    	t.add(key);
     	return collision;
     }
 

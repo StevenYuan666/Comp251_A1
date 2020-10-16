@@ -344,6 +344,20 @@ public class main {
 	public static void addInsert2() {
 		Open_Addressing o2 = new Open_Addressing(4, 1205, -1);
 		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		/*
+		System.out.println(o2.probe(12, 0));
+		System.out.println(o2.probe(5, 0));
+		System.out.println(o2.probe(2, 0));
+		System.out.println(o2.probe(7, 0));
+		System.out.println(o2.probe(1998, 0));
+		System.out.println(o2.probe(1998, 1));
+		System.out.println(o2.probe(1998, 2));
+		System.out.println(o2.probe(1998, 3));
+		System.out.println(o2.probe(2000, 0));
+		System.out.println(o2.probe(2000, 1));
+		System.out.println(o2.probe(2000, 2));
+		System.out.println(o2.probe(2000, 3));
+		*/
 		int collision = o2.insertKeyArray(keys);
 		if(collision == 8) {
 			System.out.println("Open_Addressing.insertKey Test2 Passed. Pts [ 1 / 1 ]");
@@ -357,6 +371,17 @@ public class main {
 	public static void addInsert3() {
 		Open_Addressing o3 = new Open_Addressing(5, 290, 23);
 		int[] keys = {12, 5, 2, 7, 1998, 2000};
+		/*
+		System.out.println(o3.probe(12, 0));
+		System.out.println(o3.probe(5, 0));
+		System.out.println(o3.probe(2, 0));
+		System.out.println(o3.probe(7, 0));
+		System.out.println(o3.probe(1998, 0));
+		System.out.println(o3.probe(1998, 1));
+		System.out.println(o3.probe(2000, 0));
+		System.out.println(o3.probe(2000, 1));
+		System.out.println(o3.probe(2000, 2));
+		*/
 		int collision = o3.insertKeyArray(keys);
 		if(collision == 3) {
 			System.out.println("Open_Addressing.insertKey Test3 Passed. Pts [ 1 / 1 ]");
@@ -477,8 +502,6 @@ public class main {
 		o2.insertKeyArray(keys);
 		int collision1 = o2.removeKey(1998);
 		int collision2 = o2.removeKey(2000);
-		System.out.println(collision1);
-		System.out.println(collision2);
 		if(collision1 == 4 && collision2 == 4) {
 			System.out.println("Open_Addressing.removeKey Test2 Passed. Pts [ 1 / 1 ]");
 			heavy += 1;
