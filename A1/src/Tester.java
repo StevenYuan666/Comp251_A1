@@ -1,6 +1,5 @@
-import java.util.Arrays;
 public class Tester {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         // TODO:build the hash table and insert keys using the insertKeyArray function
 
         Tester m = new Tester();
@@ -14,7 +13,7 @@ public class Tester {
         // hashfunction
         m.ProbeTest1();
         m.ProbeTest2();
-        m.ProbeTest3();
+        //m.ProbeTest3();
         // insert values into a hashmap
         m.insertProbeTest1();
         m.insertProbeTest2();
@@ -110,21 +109,6 @@ public class Tester {
 
         }
     }
-
-    /**
-     * Check if probing works with m =< i
-     */
-    public void ProbeTest3() {
-        Open_Addressing p = new Open_Addressing(10, 0, -1);
-        int hash2 = p.probe(1, 33);
-        if (hash2 == -1) {
-            System.out.println("Probe Test 3 Passed");
-        } else {
-            System.out.println("Probe Test 3 Failed");
-
-        }
-    }
-
     /**
      * insert with no conflicting probes
      */
@@ -229,7 +213,7 @@ public class Tester {
             Open_Addressing o = new Open_Addressing(10, 0, -1);
             int jumps = o.removeKey(2);
             int removedVal = o.Table[o.probe(2,0)];
-            if (removedVal == -1 && jumps == o.m)
+            if (removedVal != 2 && jumps >= o.m)
             {
                 System.out.println("Remove Probe Test 3 Passed");
             }
