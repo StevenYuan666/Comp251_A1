@@ -105,9 +105,14 @@ public class Open_Addressing {
         		i ++;
         		index = probe(key,i);
         		counter ++;
+        		//When we encounter the key -1, which means we will not find the target key
+        		if(this.Table[index] == -1) {
+        			break;
+        		}
         	}
+        	//Use another notation for the key we removed, so that it will not affect the following removes
         	if(index >= 0 && index < m && this.Table[index] == key) {
-        		this.Table[index] = -1;
+        		this.Table[index] = -2;
         	}
         	return counter;
         }
